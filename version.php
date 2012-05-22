@@ -15,6 +15,6 @@
 // along with Moodbile.  If not, see <http://www.gnu.org/licenses/>.
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2012051405;
+$plugin->version = 2012051408;
 $plugin->requires  = 2011112900;
 $plugin->component = 'auth_mobilemanual';  

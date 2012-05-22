@@ -1,0 +1,33 @@
+<table cellspacing="0" cellpadding="5" border="0">
+	<tr valign="top">
+    	<td align="right"><?php print_string("webservice_association", "auth_mobilemanual"); ?>:</td>
+    	<td>
+			<select name="webservice_id">
+				<?php
+					global $DB;
+					$webservices = $DB->get_records_select('external_services','');
+					foreach($webservices as $webservice){
+						$selection_status = $config->webservice_id === $webservice->id ? 'selected="selected"' : '';
+						echo "<option value='$webservice->id' $selection_status>";	
+						echo $webservice->name;
+						echo '</option>';
+					}
+				?>
+			</select>
+		</td>
+	</tr>
+	<tr>
+    	<td align="right"><?php print_string("token_duration", "auth_mobilemanual"); ?>:</td>
+		<td>
+			<select name="token_duration">
+				<?php 
+					for($h=0; $h<24; $h++){
+						$selection_status = $config->token_duration == $h ? 'selected="selected"' : '';
+						$time = $h*3600;
+						echo "<option value='$time' $selection_status>$h</option>";	
+					}
+				?>
+			</select>
+		</td>
+	</tr>
+</table>
