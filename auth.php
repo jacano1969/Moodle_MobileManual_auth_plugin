@@ -18,7 +18,12 @@ class auth_plugin_mobilemanual extends auth_plugin_base {
 
     function user_login($username, $password) {
 		$manual_auth = get_auth_plugin('manual');
-        return $manual_auth->user_login($username, $password);
+        $result = $manual_auth->user_login($username, $password);
+		if ($result === true) {
+			return true;	
+		} else {
+			return $this->error(0);	
+		}
     }
 
 
@@ -57,6 +62,30 @@ class auth_plugin_mobilemanual extends auth_plugin_base {
 
 		return true;
     }
+
+	public function error($code) {
+		$error = array(
+				'exception' => 'unknown exception',
+				'message' => 'no message',
+				'debuginfo'=>'code: '.$code
+				);
+
+		switch ($code) {
+			case 0:
+				$error["exception"] = 'authentication_failed';
+				$error["message"] = 'Authentication failed. Please check your username and password.';
+				break;
+			case 1:
+				$error["exception"] = 'user_data_exception';
+				$error["message"] = 'The username is missing.';
+				break;
+			case 2:
+				$error["exception"] = 'user_data_exception';
+				$error["message"] = 'The password is missing.';
+				break;
+		}
+		return $error;
+	}
 }
 
 

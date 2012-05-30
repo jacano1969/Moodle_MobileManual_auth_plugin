@@ -3,11 +3,16 @@ require_once('../../config.php');
 require_once($CFG->libdir.'/authlib.php');
 require_once($CFG->libdir.'/externallib.php');
 
-if( isset($_GET['username']) and !empty($_GET['username']) and isset($_GET['password']) and !empty($_GET['password']) ) {
-	$mobile_manual_auth = get_auth_plugin('mobilemanual');
-	$logged_in = $mobile_manual_auth->user_login($_GET['username'], $_GET['password']);
+header('Content-type: text/plain');
+$mobile_manual_auth = get_auth_plugin('mobilemanual');
 
-	if( $logged_in === true ) {
+if( 
+	isset($_GET['username']) and !empty($_GET['username']) and 
+	isset($_GET['password']) and !empty($_GET['password'])
+) {
+	$response = $mobile_manual_auth->user_login($_GET['username'], $_GET['password']);
+
+	if( $response === true ) {
 		// set user	
 		$USER = $DB->get_record('user', array('username'=>$_GET['username']) );
 
@@ -25,11 +30,14 @@ if( isset($_GET['username']) and !empty($_GET['username']) and isset($_GET['pass
 			$response[$course->id]['coursename'] = $course->fullname;
 			$response[$course->id]['token'] = external_generate_token(EXTERNAL_TOKEN_PERMANENT, $serviceid, $USER->id, $context, $validuntil);
 		}
-		echo json_encode($response);
-	} else {
-		echo json_encode(array('error' => 'Authentication Failed'));
-	}
+	} 
+	echo json_encode($response);
 } else {
-	echo json_encode(array('error' => 'Missing user data'));
+	// manage missing parameters
+	if( !isset($_GET['username']) or empty($_GET['username']) ) {
+		echo json_encode( $mobile_manual_auth->error(1) );
+	} else {
+		echo json_encode( $mobile_manual_auth->error(2) );
+	}
 }
 ?>
