@@ -3,7 +3,7 @@ require_once('../../config.php');
 require_once($CFG->libdir.'/authlib.php');
 require_once($CFG->libdir.'/externallib.php');
 
-header('Content-type: text/plain');
+header('Content-type: application/json');
 $mobile_manual_auth = get_auth_plugin('mobilemanual');
 
 if( 
