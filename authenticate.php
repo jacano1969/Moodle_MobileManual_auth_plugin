@@ -27,8 +27,8 @@ if(
 		foreach($courses as $course) {
 			$context = get_context_instance(CONTEXT_COURSE, $course->id);
 			$entry = array();
-			$entry['courseid'] = $course->id;
-			$entry['coursename'] = $course->fullname;
+			$entry['id'] = $course->id;
+			$entry['name'] = $course->fullname;
 			$entry['token'] = external_generate_token(EXTERNAL_TOKEN_PERMANENT, $serviceid, $USER->id, $context, $validuntil);
 			$response[count($response)] = $entry;
 		}
