@@ -29,7 +29,7 @@ if(
 			$entry = array();
 			$entry['id'] = $course->id;
 			$entry['name'] = $course->fullname;
-			$entry['timemodified'] = $course->fullname;
+			$entry['timemodified'] = $course->timemodified;
 			$entry['token'] = external_generate_token(EXTERNAL_TOKEN_PERMANENT, $serviceid, $USER->id, $context, $validuntil);
 			$response[count($response)] = $entry;
 		}
