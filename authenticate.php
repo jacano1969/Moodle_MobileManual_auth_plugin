@@ -22,13 +22,14 @@ if(
 		// generate new tokens
 		$serviceid = $mobile_manual_auth->config->webservice_id;
 		$validuntil = time() + $mobile_manual_auth->config->token_duration;
-		$courses = enrol_get_my_courses();
+		$courses = enrol_get_my_courses(array('timemodified'));
 		$response = array();
 		foreach($courses as $course) {
 			$context = get_context_instance(CONTEXT_COURSE, $course->id);
 			$entry = array();
 			$entry['id'] = $course->id;
 			$entry['name'] = $course->fullname;
+			$entry['timemodified'] = $course->fullname;
 			$entry['token'] = external_generate_token(EXTERNAL_TOKEN_PERMANENT, $serviceid, $USER->id, $context, $validuntil);
 			$response[count($response)] = $entry;
 		}
