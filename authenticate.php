@@ -22,7 +22,7 @@ if(
 		// generate new tokens
 		$serviceid = $mobile_manual_auth->config->webservice_id;
 		$validuntil = time() + $mobile_manual_auth->config->token_duration;
-		$courses = enrol_get_my_courses(array('timemodified'), 'fullname DESC');
+		$courses = enrol_get_my_courses(array('timemodified'), 'fullname');
 		$response = array();
 		foreach($courses as $course) {
 			$context = get_context_instance(CONTEXT_COURSE, $course->id);
