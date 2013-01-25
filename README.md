@@ -11,6 +11,8 @@ To install please proceed as follows:
 
 1. Decompress the mobilemanual archive and move the rename the folder to mobilemanual.
 
+   You also can use this command: git clone git://github.com/arael/Moodle_MobileManual_auth_plugin.git mobilemanual
+
 2. Move the folder to MOODLEROOT/auth
 
 3. Authenticate as administrator on your Moodle installation and click on Notifications.
